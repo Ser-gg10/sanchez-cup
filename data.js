@@ -1,6 +1,8 @@
-function LS(k){ return JSON.parse(localStorage.getItem(k)) || []; }
-function SS(k,v){ localStorage.setItem(k,JSON.stringify(v)); }
+// Funciones para guardar y leer del localStorage
+function LS(key){ return JSON.parse(localStorage.getItem(key)) || []; }
+function SS(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
 
+// Variables globales
 let equipos = LS('equipos');
 let partidos = LS('partidos');
 let clasificacion = LS('clasificacion');
