@@ -121,12 +121,3 @@ function generarEliminatorias(){
   b.innerHTML+=`<div class='round'><strong>Semifinal 2</strong><p>${top[1].nombre} vs ${top[2].nombre}</p></div>`;
   b.innerHTML+=`<div class='round'><strong>Final</strong><p>Ganadores semifinales</p></div>`;
 }
-
-// --- Inicial render ---
-document.addEventListener('DOMContentLoaded',()=>{
-  equipos = LS('equipos');
-  partidos = LS('partidos');
-  clasificacion = LS('clasificacion');
-  renderPartidos();
-  calcularTodo();
-});
