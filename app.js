@@ -11,11 +11,10 @@ formEquipo.onsubmit = e => {
   calcularTodo();
 };
 
-// --- BOTONES ADMIN DINÁMICOS ---
+// --- ADMIN ---
 function renderAdminButtons(){
-  if(!isAdmin()) return; // Si no es admin, no se muestran botones
+  if(!isAdmin()) return;
 
-  // Mostrar aviso de modo admin
   const header = document.querySelector('header');
   if(!document.getElementById('adminLabel')){
     const span = document.createElement('span');
@@ -26,7 +25,6 @@ function renderAdminButtons(){
     header.appendChild(span);
   }
 
-  // Botón Generar Liga
   const ligaCont = document.getElementById('ligaContainer');
   if(!document.getElementById('btnGenerarLiga')){
     const btnLiga = document.createElement('button');
@@ -37,7 +35,6 @@ function renderAdminButtons(){
     ligaCont.prepend(btnLiga);
   }
 
-  // Botón Generar Eliminatorias
   const elimCont = document.getElementById('elimContainer');
   if(!document.getElementById('btnGenerarElim')){
     const btnElim = document.createElement('button');
@@ -70,11 +67,7 @@ function renderPartidos(){
   partidos.forEach((p,i)=>{
     const d = document.createElement('div');
     d.className = 'card match';
-    d.innerHTML = `
-      <div>${p.a}</div>
-      <div class='score'>${p.acta ? `${p.acta.ga}-${p.acta.gb}` : 'vs'}</div>
-      <div>${p.b}</div>
-    `;
+    d.innerHTML = `<div>${p.a}</div><div class='score'>${p.acta?`${p.acta.ga}-${p.acta.gb}`:'vs'}</div><div>${p.b}</div>`;
     if(isAdmin()){
       const btnActa = document.createElement('button');
       btnActa.className = 'main';
@@ -124,11 +117,9 @@ function clasificacionFunc(){
   clasificacion.sort((a,b)=>b.pts-a.pts);
   const tabla = document.getElementById('tablaClas');
   if(tabla){
-    tabla.innerHTML = '';
+    tabla.innerHTML='';
     clasificacion.forEach((e,i)=>{
-      tabla.innerHTML += `<tr>
-        <td>${i+1}</td><td>${e.nombre}</td><td>${e.PJ}</td><td>${e.PG}</td><td>${e.PE}</td><td>${e.PP}</td><td>${e.pts}</td>
-      </tr>`;
+      tabla.innerHTML += `<tr><td>${i+1}</td><td>${e.nombre}</td><td>${e.PJ}</td><td>${e.PG}</td><td>${e.PE}</td><td>${e.PP}</td><td>${e.pts}</td></tr>`;
     });
   }
   guardarDatos();
@@ -141,14 +132,14 @@ function rankingFunc(){
   partidos.forEach(p=>{
     if(!p.acta) return;
     Object.entries(p.acta.datos).forEach(([j,d])=>{
-      g[j] += d.g;
-      a[j] += d.a;
+      g[j]+=d.g;
+      a[j]+=d.a;
     });
   });
   const tGoles = document.getElementById('rankingGoles');
   const tAsist = document.getElementById('rankingAsist');
-  if(tGoles){ tGoles.innerHTML=''; Object.entries(g).sort((x,y)=>y[1]-x[1]).forEach(([j,v])=>tGoles.innerHTML += `<tr><td>${j}</td><td>${v}</td></tr>`);}
-  if(tAsist){ tAsist.innerHTML=''; Object.entries(a).sort((x,y)=>y[1]-x[1]).forEach(([j,v])=>tAsist.innerHTML += `<tr><td>${j}</td><td>${v}</td></tr>`);}
+  if(tGoles){ tGoles.innerHTML=''; Object.entries(g).sort((x,y)=>y[1]-x[1]).forEach(([j,v])=>tGoles.innerHTML+=`<tr><td>${j}</td><td>${v}</td></tr>`);}
+  if(tAsist){ tAsist.innerHTML=''; Object.entries(a).sort((x,y)=>y[1]-x[1]).forEach(([j,v])=>tAsist.innerHTML+=`<tr><td>${j}</td><td>${v}</td></tr>`);}
 }
 
 // --- CALCULAR TODO ---
