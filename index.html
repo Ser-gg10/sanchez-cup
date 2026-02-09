@@ -3,64 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sánchez Cup</title>
-
-<!-- restaurar modo oscuro antes de pintar -->
-<script>
-if(localStorage.getItem('sc_dark')==='1'){
-  document.documentElement.classList.add('dark');
-}
-</script>
+<title>Sánchez Cup · Torneo 3v3</title>
+<meta name="theme-color" content="#7b1e2b">
 
 <link rel="stylesheet" href="styles.css">
+
+<script>
+// Restaurar modo oscuro antes de pintar
+if(localStorage.getItem('sc_dark')==='1') document.documentElement.classList.add('dark');
+</script>
 </head>
-
 <body>
-<header>
-<h1>Sánchez Cup</h1>
 
-<div class="controls">
-<button onclick="toggleDark()">🌙</button>
-</div>
+<header>
+  <h1>Sánchez Cup</h1>
+  <p>Torneo de Fútbol 3v3</p>
 </header>
 
-<!-- ADMIN LOGIN -->
-<div id="roleSwitcher">
-<button onclick="loginAdmin()">Admin</button>
-<button onclick="setRole('tv')">TV</button>
-<button onclick="setRole('public')">Público</button>
-</div>
+<nav>
+  <a href="#inscripciones">Inscripciones</a>
+  <a href="#liga">Liga</a>
+  <a href="#clasificacion">Clasificación</a>
+  <a href="#ranking">Ranking</a>
+  <a href="#eliminatorias">Eliminatorias</a>
+  <button onclick="toggleDark()">🌙</button>
+  <button onclick="loginAdmin()">🔐 Admin</button>
+</nav>
 
-<!-- INSCRIPCIONES -->
-<section class="public-only card">
-<h2>Inscribirse</h2>
-<input id="playerName" placeholder="Nombre jugador">
-<button onclick="addPlayer()">Añadir</button>
-<ul id="playerList"></ul>
+<section id="inscripciones" class="public-only">
+  <h2>Inscripción de Equipos</h2>
+  <div class="card">
+    <form id="formEquipo">
+      <label>Nombre del equipo</label>
+      <input id="equipo" required>
+      <div class="players">
+        <input class="jugador" placeholder="Nombre Apellido" required>
+        <input class="jugador" placeholder="Nombre Apellido" required>
+        <input class="jugador" placeholder="Nombre Apellido" required>
+      </div>
+      <button class="main">Inscribir equipo</button>
+    </form>
+  </div>
 </section>
 
-<!-- ADMIN PANEL -->
-<section class="admin-only card">
-<h2>Gestión torneo</h2>
-<button onclick="generateMatches()">Generar partidos</button>
-<button onclick="downloadData()">Descargar copia</button>
-<button onclick="uploadData()">Cargar copia</button>
+<section id="liga" class="admin-only public-only">
+  <h2>Fase Liga</h2>
+  <div class="card">
+    <button class="main alt" onclick="generarLiga()">Generar partidos</button>
+    <p id="adminMsg" style="text-align:center;font-weight:700"></p>
+    <div id="partidos"></div>
+  </div>
 </section>
 
-<!-- PARTIDOS -->
-<section class="card">
-<h2>Partidos</h2>
-<div id="matches"></div>
+<section id="clasificacion" class="public-only">
+  <h2>Clasificación</h2>
+  <div class="card">
+    <table width="100%">
+      <thead>
+        <tr><th>#</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>Pts</th></tr>
+      </thead>
+      <tbody id="tablaClas"></tbody>
+    </table>
+  </div>
 </section>
 
-<!-- CLASIFICACIÓN -->
-<section class="card">
-<h2>Clasificación</h2>
-<div id="table"></div>
+<section id="ranking" class="public-only">
+  <h2>Ranking Individual</h2>
+  <div class="card">
+    <h3>⚽ Goleadores</h3>
+    <table width="100%"><thead><tr><th>Jugador</th><th>Goles</th></tr></thead><tbody id="rankingGoles"></tbody></table>
+    <h3>🎯 Asistencias</h3>
+    <table width="100%"><thead><tr><th>Jugador</th><th>Asist.</th></tr></thead><tbody id="rankingAsist"></tbody></table>
+  </div>
+</section>
+
+<section id="eliminatorias" class="admin-only">
+  <h2>Fase Eliminatoria</h2>
+  <div class="card">
+    <button class="main" onclick="generarEliminatorias()">Generar eliminatorias</button>
+    <div class="bracket" id="bracket"></div>
+  </div>
 </section>
 
 <script src="auth.js"></script>
-<script src="data.js"></script>
 <script src="app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',applyPermissions);
+</script>
+
 </body>
 </html>
