@@ -83,22 +83,16 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
-  try{
-    equipos = LS('equipos');
-    partidos = LS('partidos');
-    clasificacion = LS('clasificacion');
+  equipos = LS('equipos') || [];
+  partidos = LS('partidos') || [];
+  clasificacion = LS('clasificacion') || [];
+  renderAdminButtons();
+  renderPartidos();
+  calcularTodo();
 
-    renderAdminButtons();
-    renderPartidos();
-    calcularTodo();
-
-    // Activar modo oscuro si estaba guardado
-    if(localStorage.getItem('sc_dark')==='1') document.body.classList.add('dark');
-
-  } catch(e){
-    console.error(e);
-  }
+  if(localStorage.getItem('sc_dark')==='1') document.body.classList.add('dark');
 });
 </script>
 </body>
 </html>
+
