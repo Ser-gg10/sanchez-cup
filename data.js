@@ -5,10 +5,6 @@ let equipos = LS('equipos');
 let partidos = LS('partidos');
 let clasificacion = LS('clasificacion');
 
-if(!localStorage.getItem('equipos')) SS('equipos', []);
-if(!localStorage.getItem('partidos')) SS('partidos', []);
-if(!localStorage.getItem('clasificacion')) SS('clasificacion', []);
-
 function guardarDatos(){
   SS('equipos', equipos);
   SS('partidos', partidos);
