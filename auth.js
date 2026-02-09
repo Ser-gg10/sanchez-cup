@@ -1,39 +1,14 @@
-const ROLE_KEY="sc_role";
-
-function getRole(){
-return localStorage.getItem(ROLE_KEY)||"public";
-}
-
-function setRole(role){
-localStorage.setItem(ROLE_KEY,role);
-location.reload();
-}
-
-function loginAdmin(){
-const pass=prompt("Contraseña admin:");
-if(pass==="sanchezcup") setRole("admin");
-else alert("Incorrecta");
-}
-
-function isAdmin(){return getRole()==="admin"}
-function isTV(){return getRole()==="tv"}
-
+const ROLE_KEY='sc_role';
+function getRole(){ return localStorage.getItem(ROLE_KEY)||'public'; }
+function setRole(role){ localStorage.setItem(ROLE_KEY,role); location.reload(); }
+function isAdmin(){ return getRole()==='admin'; }
+function isTV(){ return getRole()==='tv'; }
 function applyPermissions(){
-const admin=document.querySelectorAll('.admin-only');
-const pub=document.querySelectorAll('.public-only');
-
-if(isAdmin()){
-admin.forEach(e=>e.style.display='block');
-pub.forEach(e=>e.style.display='block');
+  document.querySelectorAll('.admin-only').forEach(e=>e.style.display=isAdmin()?'block':'none');
+  document.querySelectorAll('.public-only').forEach(e=>e.style.display=(isAdmin()||!isTV())?'block':'none');
 }
-else if(isTV()){
-admin.forEach(e=>e.style.display='none');
-pub.forEach(e=>e.style.display='none');
+function loginAdmin(){
+  const p=prompt('Contraseña admin');
+  if(p==='sanchezcup') setRole('admin');
+  else alert('Incorrecta');
 }
-else{
-admin.forEach(e=>e.style.display='none');
-pub.forEach(e=>e.style.display='block');
-}
-}
-
-document.addEventListener('DOMContentLoaded',applyPermissions);
