@@ -2,7 +2,6 @@ const ROLE_KEY='sc_role';
 
 function getRole(){ return localStorage.getItem(ROLE_KEY)||'public'; }
 function setRole(role){ localStorage.setItem(ROLE_KEY,role); location.reload(); }
-
 function isAdmin(){ return getRole()==='admin'; }
 
 function loginAdmin(){
