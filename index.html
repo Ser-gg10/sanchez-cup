@@ -6,7 +6,6 @@
 <title>Sánchez Cup · Torneo 3v3</title>
 <meta name="theme-color" content="#7b1e2b">
 <link rel="stylesheet" href="styles.css">
-<script>document.documentElement.style.display='none';</script>
 </head>
 <body>
 
@@ -25,7 +24,6 @@
   <button onclick="loginAdmin()">🔐 Admin</button>
 </nav>
 
-<!-- INSCRIPCIONES -->
 <section id="inscripciones">
   <h2>Inscripción de Equipos</h2>
   <div class="card">
@@ -42,7 +40,6 @@
   </div>
 </section>
 
-<!-- LIGA -->
 <section id="liga">
   <h2>Fase Liga</h2>
   <div class="card" id="ligaContainer">
@@ -50,7 +47,6 @@
   </div>
 </section>
 
-<!-- CLASIFICACION -->
 <section id="clasificacion">
   <h2>Clasificación</h2>
   <div class="card">
@@ -63,7 +59,6 @@
   </div>
 </section>
 
-<!-- RANKING -->
 <section id="ranking">
   <h2>Ranking Individual</h2>
   <div class="card">
@@ -74,7 +69,6 @@
   </div>
 </section>
 
-<!-- ELIMINATORIAS -->
 <section id="eliminatorias">
   <h2>Fase Eliminatoria</h2>
   <div class="card" id="elimContainer">
@@ -87,17 +81,18 @@
 <script src="app.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-  equipos = LS('equipos');
-  partidos = LS('partidos');
-  clasificacion = LS('clasificacion');
+  try{
+    equipos = LS('equipos');
+    partidos = LS('partidos');
+    clasificacion = LS('clasificacion');
 
-  renderAdminButtons();  // Solo se crean si es admin
-  renderPartidos();
-  calcularTodo();
-
-  document.documentElement.style.display='block';
+    renderAdminButtons();
+    renderPartidos();
+    calcularTodo();
+  } catch(e){
+    console.error(e);
+  }
 });
 </script>
-
 </body>
 </html>
