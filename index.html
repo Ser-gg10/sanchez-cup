@@ -76,11 +76,13 @@
   </div>
 </section>
 
+<!-- JS -->
 <script src="data.js"></script>
 <script src="auth.js"></script>
 <script src="app.js"></script>
+
 <script>
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', ()=>{
   try{
     equipos = LS('equipos');
     partidos = LS('partidos');
@@ -89,6 +91,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     renderAdminButtons();
     renderPartidos();
     calcularTodo();
+
+    // Activar modo oscuro si estaba guardado
+    if(localStorage.getItem('sc_dark')==='1') document.body.classList.add('dark');
+
   } catch(e){
     console.error(e);
   }
