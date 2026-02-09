@@ -13,7 +13,7 @@ formEquipo.onsubmit = e => {
 
 // --- BOTONES ADMIN DINÁMICOS ---
 function renderAdminButtons(){
-  if(!isAdmin()) return;
+  if(!isAdmin()) return; // Si no es admin, no se muestran botones
 
   // Mostrar aviso de modo admin
   const header = document.querySelector('header');
