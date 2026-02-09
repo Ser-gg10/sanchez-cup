@@ -1,4 +1,4 @@
-// --- INSCRIPCIONES ---
+// INSCRIPCIONES
 const formEquipo = document.getElementById('formEquipo');
 formEquipo.onsubmit = e => {
   e.preventDefault();
@@ -11,11 +11,10 @@ formEquipo.onsubmit = e => {
   calcularTodo();
 };
 
-// --- GENERAR BOTONES ADMIN ---
+// RENDER BOTONES ADMIN
 function renderAdminButtons(){
   if(!isAdmin()) return;
 
-  // Liga
   const ligaCont = document.getElementById('ligaContainer');
   if(!document.getElementById('btnGenerarLiga')){
     const btnLiga = document.createElement('button');
@@ -26,7 +25,6 @@ function renderAdminButtons(){
     ligaCont.prepend(btnLiga);
   }
 
-  // Eliminatorias
   const elimCont = document.getElementById('elimContainer');
   if(!document.getElementById('btnGenerarElim')){
     const btnElim = document.createElement('button');
@@ -38,21 +36,19 @@ function renderAdminButtons(){
   }
 }
 
-// --- GENERAR LIGA ---
+// GENERAR LIGA
 function generarLiga(){
   if(!isAdmin()) return alert('Solo admin');
   partidos = [];
-  for(let i=0;i<equipos.length;i++){
-    for(let j=i+1;j<equipos.length;j++){
+  for(let i=0;i<equipos.length;i++)
+    for(let j=i+1;j<equipos.length;j++)
       partidos.push({a:equipos[i].nombre,b:equipos[j].nombre,acta:null});
-    }
-  }
   guardarDatos();
   renderPartidos();
   calcularTodo();
 }
 
-// --- RENDER PARTIDOS ---
+// RENDER PARTIDOS
 function renderPartidos(){
   const c = document.getElementById('partidos');
   c.innerHTML='';
@@ -75,7 +71,7 @@ function renderPartidos(){
   });
 }
 
-// --- EDITAR ACTA ---
+// EDITAR ACTA
 function editarActa(i){
   if(!isAdmin()) return alert('Solo admin');
   const p = partidos[i];
@@ -98,7 +94,7 @@ function editarActa(i){
   calcularTodo();
 }
 
-// --- CLASIFICACION ---
+// CLASIFICACION
 function clasificacionFunc(){
   clasificacion = equipos.map(e=>({nombre:e.nombre,PJ:0,PG:0,PE:0,PP:0,pts:0}));
   partidos.forEach(p=>{
@@ -123,7 +119,7 @@ function clasificacionFunc(){
   guardarDatos();
 }
 
-// --- RANKING ---
+// RANKING
 function rankingFunc(){
   const g={}, a={};
   equipos.forEach(eq=>eq.jugadores.forEach(j=>{g[j]=0;a[j]=0;}));
@@ -139,10 +135,10 @@ function rankingFunc(){
   if(tAsist){ tAsist.innerHTML=''; Object.entries(a).sort((x,y)=>y[1]-x[1]).forEach(([j,v])=>tAsist.innerHTML+=`<tr><td>${j}</td><td>${v}</td></tr>`);}
 }
 
-// --- CALCULAR TODO ---
+// CALCULAR TODO
 function calcularTodo(){ clasificacionFunc(); rankingFunc(); }
 
-// --- ELIMINATORIAS ---
+// ELIMINATORIAS
 function generarEliminatorias(){
   if(!isAdmin()) return alert('Solo admin');
   const top = clasificacion.slice(0,4);
