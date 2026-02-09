@@ -4,12 +4,11 @@ function getRole(){ return localStorage.getItem(ROLE_KEY)||'public'; }
 function setRole(role){ localStorage.setItem(ROLE_KEY,role); location.reload(); }
 
 function isAdmin(){ return getRole()==='admin'; }
-function isTV(){ return getRole()==='tv'; }
 
 function loginAdmin(){
   const p=prompt('Contraseña admin');
   if(p==='sanchezcup') setRole('admin');
-  else alert('Incorrecta');
+  else alert('Contraseña incorrecta');
 }
 
 function toggleDark(){
