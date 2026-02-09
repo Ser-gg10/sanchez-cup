@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sánchez Cup · Torneo 3v3</title>
 <meta name="theme-color" content="#7b1e2b">
-
 <link rel="stylesheet" href="styles.css">
 
 <script>
@@ -30,6 +29,7 @@ if(localStorage.getItem('sc_dark')==='1') document.documentElement.classList.add
   <button onclick="loginAdmin()">🔐 Admin</button>
 </nav>
 
+<!-- INSCRIPCIONES -->
 <section id="inscripciones" class="public-only">
   <h2>Inscripción de Equipos</h2>
   <div class="card">
@@ -46,6 +46,7 @@ if(localStorage.getItem('sc_dark')==='1') document.documentElement.classList.add
   </div>
 </section>
 
+<!-- LIGA -->
 <section id="liga" class="admin-only public-only">
   <h2>Fase Liga</h2>
   <div class="card">
@@ -55,6 +56,7 @@ if(localStorage.getItem('sc_dark')==='1') document.documentElement.classList.add
   </div>
 </section>
 
+<!-- CLASIFICACION -->
 <section id="clasificacion" class="public-only">
   <h2>Clasificación</h2>
   <div class="card">
@@ -67,6 +69,7 @@ if(localStorage.getItem('sc_dark')==='1') document.documentElement.classList.add
   </div>
 </section>
 
+<!-- RANKING -->
 <section id="ranking" class="public-only">
   <h2>Ranking Individual</h2>
   <div class="card">
@@ -77,6 +80,7 @@ if(localStorage.getItem('sc_dark')==='1') document.documentElement.classList.add
   </div>
 </section>
 
+<!-- ELIMINATORIAS -->
 <section id="eliminatorias" class="admin-only">
   <h2>Fase Eliminatoria</h2>
   <div class="card">
@@ -88,7 +92,7 @@ if(localStorage.getItem('sc_dark')==='1') document.documentElement.classList.add
 <script src="auth.js"></script>
 <script src="app.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded',applyPermissions);
+document.addEventListener('DOMContentLoaded',()=>{applyPermissions(); renderPartidos(); calcularTodo();});
 </script>
 
 </body>
