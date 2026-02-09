@@ -114,8 +114,24 @@ const LS=k=>JSON.parse(localStorage.getItem(k))||[];
 const SS=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 let admin=false; // no persistir en localStorage
 
-function toggleDark(){document.body.classList.toggle('dark')}
-function loginAdmin(){const p=prompt('Contraseña admin');if(p==='sanchez'){admin=true;adminMsg.textContent='Modo admin activo';renderPartidos();}else{alert('Contraseña incorrecta');}}
+function toggleDark(){
+document.body.classList.toggle('dark');
+localStorage.setItem('sc_dark',document.body.classList.contains('dark')?'1':'0');
+}
+function loginAdmin(){
+const p=prompt('Contraseña admin');
+if(p==='sanchez'){
+localStorage.setItem('sc_admin','1');
+activarAdmin();
+}else alert('Contraseña incorrecta');
+}
+
+function activarAdmin(){
+admin=true;
+adminMsg.textContent='Modo admin activo';
+document.querySelectorAll('.admin-only').forEach(e=>e.style.display='block');
+renderPartidos();
+}else{alert('Contraseña incorrecta');}}
 
 formEquipo.onsubmit=e=>{
  e.preventDefault();
@@ -182,6 +198,13 @@ function initTV(){
   window.addEventListener('storage',refrescar);
   setInterval(refrescar,2000);
 }
+
+// restaurar preferencias guardadas
+if(localStorage.getItem('sc_dark')==='1') document.body.classList.add('dark');
+if(localStorage.getItem('sc_admin')==='1') activarAdmin();
+
+// sincronización entre pestañas (GitHub Pages)
+window.addEventListener('storage',()=>{renderPartidos();calcularTodo();});
 
 initTV();
 setAdminUI();
@@ -256,5 +279,7 @@ renderPartidos();calcularTodo();
 </script>
 </body>
 </html>
+
+
 
 
