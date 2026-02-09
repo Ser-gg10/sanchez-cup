@@ -6,11 +6,7 @@
 <title>Sánchez Cup · Torneo 3v3</title>
 <meta name="theme-color" content="#7b1e2b">
 <link rel="stylesheet" href="styles.css">
-
-<script>
-// Ocultar body hasta determinar rol
-document.documentElement.style.display='none';
-</script>
+<script>document.documentElement.style.display='none';</script>
 </head>
 <body>
 
@@ -50,7 +46,6 @@ document.documentElement.style.display='none';
 <section id="liga">
   <h2>Fase Liga</h2>
   <div class="card" id="ligaContainer">
-    <!-- Botones admin se crean aquí dinámicamente -->
     <div id="partidos"></div>
   </div>
 </section>
@@ -83,7 +78,6 @@ document.documentElement.style.display='none';
 <section id="eliminatorias">
   <h2>Fase Eliminatoria</h2>
   <div class="card" id="elimContainer">
-    <!-- Botones admin se crean aquí dinámicamente -->
     <div class="bracket" id="bracket"></div>
   </div>
 </section>
@@ -93,105 +87,17 @@ document.documentElement.style.display='none';
 <script src="app.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded',()=>{
-  // Inicializa datos
   equipos = LS('equipos');
   partidos = LS('partidos');
   clasificacion = LS('clasificacion');
 
-  // Render inicial
+  renderAdminButtons();  // Solo se crean si es admin
   renderPartidos();
   calcularTodo();
 
-  // Crear botones admin solo si es admin
-  if(isAdmin()){
-    const ligaCont = document.getElementById('ligaContainer');
-    const btnLiga = document.createElement('button');
-    btnLiga.className='main alt';
-    btnLiga.textContent='Generar Liga';
-    btnLiga.onclick=generarLiga;
-    ligaCont.prepend(btnLiga);
-
-    const elimCont = document.getElementById('elimContainer');
-    const btnElim = document.createElement('button');
-    btnElim.className='main';
-    btnElim.textContent='Generar Eliminatorias';
-    btnElim.onclick=generarEliminatorias;
-    elimCont.prepend(btnElim);
-  }
-
-  // Mostrar body
   document.documentElement.style.display='block';
 });
 </script>
 
 </body>
 </html>
-
-<section id="inscripciones" class="public-only">
-  <h2>Inscripción de Equipos</h2>
-  <div class="card">
-    <form id="formEquipo">
-      <label>Nombre del equipo</label>
-      <input id="equipo" required>
-      <div class="players">
-        <input class="jugador" placeholder="Nombre Apellido" required>
-        <input class="jugador" placeholder="Nombre Apellido" required>
-        <input class="jugador" placeholder="Nombre Apellido" required>
-      </div>
-      <button class="main">Inscribir equipo</button>
-    </form>
-  </div>
-</section>
-
-<!-- LIGA -->
-<section id="liga" class="admin-only public-only">
-  <h2>Fase Liga</h2>
-  <div class="card">
-    <button class="main alt" onclick="generarLiga()">Generar partidos</button>
-    <p id="adminMsg" style="text-align:center;font-weight:700"></p>
-    <div id="partidos"></div>
-  </div>
-</section>
-
-<!-- CLASIFICACION -->
-<section id="clasificacion" class="public-only">
-  <h2>Clasificación</h2>
-  <div class="card">
-    <table width="100%">
-      <thead>
-        <tr><th>#</th><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>Pts</th></tr>
-      </thead>
-      <tbody id="tablaClas"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- RANKING -->
-<section id="ranking" class="public-only">
-  <h2>Ranking Individual</h2>
-  <div class="card">
-    <h3>⚽ Goleadores</h3>
-    <table width="100%"><thead><tr><th>Jugador</th><th>Goles</th></tr></thead><tbody id="rankingGoles"></tbody></table>
-    <h3>🎯 Asistencias</h3>
-    <table width="100%"><thead><tr><th>Jugador</th><th>Asist.</th></tr></thead><tbody id="rankingAsist"></tbody></table>
-  </div>
-</section>
-
-<!-- ELIMINATORIAS -->
-<section id="eliminatorias" class="admin-only">
-  <h2>Fase Eliminatoria</h2>
-  <div class="card">
-    <button class="main" onclick="generarEliminatorias()">Generar eliminatorias</button>
-    <div class="bracket" id="bracket"></div>
-  </div>
-</section>
-
-<script src="auth.js"></script>
-<script src="app.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',()=>{applyPermissions(); renderPartidos(); calcularTodo();});
-</script>
-
-</body>
-</html>
-
