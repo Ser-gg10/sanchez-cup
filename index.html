@@ -100,6 +100,14 @@ button.alt{background:var(--accent)}
 </section>
 
 <script>
+// Enlaces DOM (evita fallos en navegadores que no crean variables globales por id)
+const formEquipo=document.getElementById('formEquipo');
+const equipo=document.getElementById('equipo');
+const adminMsg=document.getElementById('adminMsg');
+const tablaClas=document.getElementById('tablaClas');
+const rankingGoles=document.getElementById('rankingGoles');
+const rankingAsist=document.getElementById('rankingAsist');
+const fileImport=document.getElementById('fileImport');
 const LS=k=>JSON.parse(localStorage.getItem(k))||[];
 const SS=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 let admin=false; // no persistir en localStorage
@@ -192,7 +200,7 @@ fileImport.onchange=e=>{const file=e.target.files[0];const reader=new FileReader
 
 function modoTV(){
  const w=window.open('','tv');
- w.document.write(`<html><head><title>Sánchez Cup TV</title><meta name='viewport' content='width=device-width,initial-scale=1'><style>body{margin:0;font-family:system-ui;background:#12090b;color:#fff}h1{text-align:center;margin:10px 0}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #444;text-align:center}tr:first-child{background:#7b1e2b;font-weight:800}</style></head><body><h1>Clasificación</h1><table><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>DG</th><th>Pts</th></tr></thead><tbody id='t'></tbody></table><script>function r(){const c=JSON.parse(localStorage.getItem('clasificacion')||'[]');const t=document.getElementById('t');t.innerHTML='';c.forEach((e,i)=>t.innerHTML+=`<tr><td>${i+1}</td><td>${e.nombre}</td><td>${e.PJ}</td><td>${e.DG}</td><td>${e.pts}</td></tr>`);}r();setInterval(r,2000);<\/script></body></html>`);
+ w.document.write(`<html><head><title>Sánchez Cup TV</title><meta name='viewport' content='width=device-width,initial-scale=1'><style>body{margin:0;font-family:system-ui;background:#12090b;color:#fff}h1{text-align:center;margin:10px 0}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #444;text-align:center}tr:first-child{background:#7b1e2b;font-weight:800}</style></head><body><h1>Clasificación</h1><table><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>DG</th><th>Pts</th></tr></thead><tbody id='t'></tbody></table><script>function r(){const c=JSON.parse((window.opener?.localStorage||localStorage).getItem('clasificacion')||'[]');const t=document.getElementById('t');t.innerHTML='';c.forEach((e,i)=>t.innerHTML+=`<tr><td>${i+1}</td><td>${e.nombre}</td><td>${e.PJ}</td><td>${e.DG}</td><td>${e.pts}</td></tr>`);}r();setInterval(r,2000);<\/script></body></html>`);
 }
 
 renderPartidos();calcularTodo();
