@@ -199,12 +199,27 @@ function initTV(){
   setInterval(refrescar,2000);
 }
 
-// restaurar preferencias guardadas
-if(localStorage.getItem('sc_dark')==='1') document.body.classList.add('dark');
-if(localStorage.getItem('sc_admin')==='1') activarAdmin();
+function initApp(){
+  // comprobar almacenamiento
+  let lsOK=true;try{localStorage.setItem('_sc_test','1');localStorage.removeItem('_sc_test');}catch(e){lsOK=false}
+  if(!lsOK){alert('Tu navegador está bloqueando el almacenamiento. Abre la web en Chrome/Safari normal (no desde Instagram/WhatsApp).');}
 
-// sincronización entre pestañas (GitHub Pages)
-window.addEventListener('storage',()=>{renderPartidos();calcularTodo();});
+  // restaurar preferencias
+  if(localStorage.getItem('sc_dark')==='1') document.body.classList.add('dark');
+  if(localStorage.getItem('sc_admin')==='1') activarAdmin();
+
+  // sincronización entre pestañas (GitHub Pages)
+  window.addEventListener('storage',()=>{renderPartidos();calcularTodo();});
+
+  // inicializar TV si aplica
+  initTV();
+  setAdminUI();
+  renderPartidos();
+  calcularTodo();
+}
+
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initApp);
+else initApp();});
 
 initTV();
 setAdminUI();
@@ -279,7 +294,6 @@ renderPartidos();calcularTodo();
 </script>
 </body>
 </html>
-
 
 
 
