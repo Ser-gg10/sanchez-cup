@@ -11,6 +11,33 @@ formEquipo.onsubmit = e => {
   calcularTodo();
 };
 
+// --- GENERAR BOTONES ADMIN ---
+function renderAdminButtons(){
+  if(!isAdmin()) return;
+
+  // Liga
+  const ligaCont = document.getElementById('ligaContainer');
+  if(!document.getElementById('btnGenerarLiga')){
+    const btnLiga = document.createElement('button');
+    btnLiga.id='btnGenerarLiga';
+    btnLiga.className='main alt';
+    btnLiga.textContent='Generar Liga';
+    btnLiga.onclick=generarLiga;
+    ligaCont.prepend(btnLiga);
+  }
+
+  // Eliminatorias
+  const elimCont = document.getElementById('elimContainer');
+  if(!document.getElementById('btnGenerarElim')){
+    const btnElim = document.createElement('button');
+    btnElim.id='btnGenerarElim';
+    btnElim.className='main';
+    btnElim.textContent='Generar Eliminatorias';
+    btnElim.onclick=generarEliminatorias;
+    elimCont.prepend(btnElim);
+  }
+}
+
 // --- GENERAR LIGA ---
 function generarLiga(){
   if(!isAdmin()) return alert('Solo admin');
@@ -28,8 +55,7 @@ function generarLiga(){
 // --- RENDER PARTIDOS ---
 function renderPartidos(){
   const c = document.getElementById('partidos');
-  if(!c) return;
-  c.innerHTML = '';
+  c.innerHTML='';
   partidos.forEach((p,i)=>{
     const d = document.createElement('div');
     d.className='card match';
@@ -37,8 +63,14 @@ function renderPartidos(){
       <div>${p.a}</div>
       <div class='score'>${p.acta?`${p.acta.ga}-${p.acta.gb}`:'vs'}</div>
       <div>${p.b}</div>
-      ${isAdmin()?`<button class='main' onclick='editarActa(${i})'>Acta</button>`:''}
     `;
+    if(isAdmin()){
+      const btnActa = document.createElement('button');
+      btnActa.className='main';
+      btnActa.textContent='Acta';
+      btnActa.onclick = ()=>editarActa(i);
+      d.appendChild(btnActa);
+    }
     c.appendChild(d);
   });
 }
@@ -121,3 +153,4 @@ function generarEliminatorias(){
   b.innerHTML+=`<div class='round'><strong>Semifinal 2</strong><p>${top[1].nombre} vs ${top[2].nombre}</p></div>`;
   b.innerHTML+=`<div class='round'><strong>Final</strong><p>Ganadores semifinales</p></div>`;
 }
+
