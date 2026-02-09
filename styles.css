@@ -66,11 +66,7 @@ section{
   margin:auto;
 }
 
-h2{
-  text-align:center;
-  color:var(--primary);
-  margin-bottom:20px;
-}
+h2{text-align:center;color:var(--primary);margin-bottom:20px;}
 
 .card{
   background:var(--card);
@@ -127,13 +123,8 @@ button.main{
   transition:0.3s;
 }
 
-button.main:hover{
-  background:var(--secondary);
-}
-
-button.alt{
-  background:var(--accent);
-}
+button.main:hover{background:var(--secondary);}
+button.alt{background:var(--accent);}
 
 .match{
   display:grid;
@@ -164,31 +155,10 @@ button.alt{
   text-align:center;
 }
 
-table{
-  width:100%;
-  border-collapse:collapse;
-}
+table{width:100%;border-collapse:collapse;}
+th, td{padding:10px;text-align:center;border-bottom:1px solid #ccc;}
+th{background:var(--primary);color:#fff;font-weight:700;}
+tr:nth-child(even){background:rgba(0,0,0,0.03);}
+body.dark table th{background:var(--secondary);}
+body.dark tr:nth-child(even){background:rgba(255,255,255,0.05);}
 
-th, td{
-  padding:10px;
-  text-align:center;
-  border-bottom:1px solid #ccc;
-}
-
-th{
-  background:var(--primary);
-  color:#fff;
-  font-weight:700;
-}
-
-tr:nth-child(even){
-  background:rgba(0,0,0,0.03);
-}
-
-body.dark table th{
-  background:var(--secondary);
-}
-
-body.dark tr:nth-child(even){
-  background:rgba(255,255,255,0.05);
-}
